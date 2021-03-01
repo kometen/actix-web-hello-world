@@ -1,10 +1,22 @@
-use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder, Result};
+use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder, Result, HttpRequest};
+use actix_web::http::{header};
 use serde::{Serialize, Deserialize};
+
+#[cfg(test)]
+mod test;
 
 #[derive(Serialize, Deserialize)]
 struct Info {
     user_id: u32,
     username: String,
+}
+
+async fn _index(req: HttpRequest) -> HttpResponse {
+    if let Some(_hdr) = req.headers().get(header::CONTENT_TYPE) {
+        HttpResponse::Ok().into()
+    } else {
+        HttpResponse::BadRequest().into()
+    }
 }
 
 #[get("/")]
