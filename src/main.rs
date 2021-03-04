@@ -25,7 +25,7 @@ async fn hello() -> impl Responder {
     HttpResponse::Ok().body("Hej med dig!")
 }
 
-#[get("/users/{user_id}/{username}")]
+#[get("/user/{user_id}/{username}")]
 async fn user(info: web::Path<Info>) -> Result<HttpResponse> {
     Ok(HttpResponse::Ok().json(Info {
         user_id: info.user_id, username: info.username.to_string(),
